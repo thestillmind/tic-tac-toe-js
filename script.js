@@ -25,8 +25,26 @@ const gameBoard = (()=>{
   //console.log(gameBoard.setBoard());
   
   function makeBoard(array) {
-      console.log(gameBoard.setBoard()+"");
+     // console.log(gameBoard.setBoard()+"");
+      let board=document.querySelector(".board");
+      board.style.backgroundColor="red";
+      board.style.width="100px";
+      board.style.height="100px";
+
+//console.log(gameBoard.setBoard().length);
+//console.log(gameBoard.setBoard());
+
+for (i=0;i<gameBoard.setBoard().length;i++){
+console.log("hello i is: "+i);
+console.log(gameBoard.setBoard()[i]);
+let newDiv = document.createElement('div');
+newDiv.classList="newDiv";
+newDiv.innerText="box "+ i;
+board.appendChild(newDiv);
+}
   }
   
   makeBoard();
+  
+
   
