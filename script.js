@@ -15,34 +15,39 @@ const gameBoard = (()=>{
   
   })();
   
-  //const foo = gameBoard._gameBoard[1];
-  //console.log(gameBoard._gameBoard[0]);
-  //gameBoard.setBoard = [2,3]
   
   gameBoard.setBoard(0,"X");
-  //console.log(gameBoard.setBoard());
-  gameBoard.setBoard(1,"O");
-  //console.log(gameBoard.setBoard());
+  
+  gameBoard.setBoard(1,"O");  
   
   function makeBoard(array) {
-     // console.log(gameBoard.setBoard()+"");
-      let board=document.querySelector(".board");
-      board.style.backgroundColor="red";
-      board.style.width="100px";
-      board.style.height="100px";
-
-//console.log(gameBoard.setBoard().length);
-//console.log(gameBoard.setBoard());
+     let board=document.querySelector(".board");
 
 for (i=0;i<gameBoard.setBoard().length;i++){
-console.log("hello i is: "+i);
-console.log(gameBoard.setBoard()[i]);
-let newDiv = document.createElement('div');
-newDiv.classList="newDiv";
-newDiv.innerText="box "+ i;
-board.appendChild(newDiv);
+
+createNewBox();
 }
+function createNewBox() {
+  let newDiv = document.createElement('div');
+  newDiv.classList="newDiv";
+  newDiv.setAttribute('id', "box"+i);
+  newDiv.innerText="box "+ gameBoard.setBoard()[i];
+  board.appendChild(newDiv);
+  clickBox(i); 
+}
+
+function clickBox(i){
+  //let foo = document.getElementsByClassName("newDiv");
+ let foo = document.querySelector("#box"+i);
+  console.log(foo);
+  
+}
+
+
   }
+
+ 
+
   
   makeBoard();
   
