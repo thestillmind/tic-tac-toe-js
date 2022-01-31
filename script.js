@@ -25,25 +25,26 @@ const gameBoard = (()=>{
 
 for (i=0;i<gameBoard.setBoard().length;i++){
 
-createNewBox();
+createNewBox(i);
 }
-function createNewBox() {
+
+function createNewBox(boxNumber) {
   let newDiv = document.createElement('div');
   newDiv.classList="newDiv";
-  newDiv.setAttribute('id', "box"+i);
-  newDiv.innerText="box "+ gameBoard.setBoard()[i];
+  newDiv.setAttribute('id', "box"+boxNumber);
+  newDiv.innerText="box "+ gameBoard.setBoard()[boxNumber];
   board.appendChild(newDiv);
-  clickBox(i); 
+  clickBox(boxNumber); 
 }
 
-function clickBox(i){
+function clickBox(boxNumber){
   //let foo = document.getElementsByClassName("newDiv");
- let foo = document.querySelector("#box"+i);
+ let foo = document.querySelector("#box"+boxNumber);
   console.log(foo);
-  
+  foo.addEventListener('click', ()=>{
+    alert("this is box"+boxNumber);
+  })
 }
-
-
   }
 
  
