@@ -9,38 +9,46 @@ const gameBoard = (()=>{
     let board=document.querySelector(".board");
     for (i=0;i<gameBoard.setBoard().length;i++){    
     createNewBox(i);
-    clickBox(i); 
+  //  clickBox(i); 
     }
     
-    function createNewBox(boxNumber) {
+        function createNewBox(boxNumber) {
       let newDiv = document.createElement('div');
       newDiv.classList="newDiv";
       newDiv.setAttribute('id', "box"+boxNumber);
       newDiv.innerText="box "+ gameBoard.setBoard()[boxNumber];
       board.appendChild(newDiv);     
     }
-    
-    function clickBox(boxNumber){
-    let foo = document.querySelector("#box"+boxNumber);
-      console.log(foo);
-      foo.addEventListener('click', ()=>{
-        alert("this is box"+boxNumber);
-      })
-    }
-
   };
-  
+
+    function clickBox(letter){
+      let fooLetter="X";
+      let foo = document.getElementsByClassName("newDiv");     
+      Array.from(foo).forEach((element)=>{
+       element.addEventListener('click', (e)=>{
+
+        if (fooLetter=="X"){
+          fooLetter="O";
+        }
+        else if (fooLetter=="O"){
+          fooLetter="X";
+        }
+         alert("this is box number"+element.id);
+        element.innerText=fooLetter;
+         console.log("clickbox letter is: " + fooLetter);
+
+
+       });
+      });     
+    }      
+
   return {
       setBoard,
-      makeBoard
+      makeBoard,
+      clickBox
   }  
-  })();  
+  })();   
   
-  // gameBoard.setBoard(0,"X");  
-  // gameBoard.setBoard(1,"O");  
-  // console.log(gameBoard.makeBoard());
-
-
   const Player = (name, marker) => {
     return {
       name,
@@ -48,14 +56,38 @@ const gameBoard = (()=>{
     }
   };
 
-  const player1= Player("Player1", "X");
-  const player2= Player("Player2", "O");
+  let player1 = Player("player1", "X");
+  let player2 = Player("player2", "O");
 
-   gameBoard.setBoard(0,"X"); 
-   gameBoard.setBoard(0, player2.marker);
-    gameBoard.makeBoard();
+  const runGame = (()=>{  
+   
+  // let player=player2;
+    console.log(player1.marker);
+    console.log(player2.marker);
+
+    let counter = 0;
+ console.log("counter is: " + counter);
+  gameBoard.makeBoard();    
+
+   function switchPlayer(player){   
+ 
+  
+    return  gameBoard.clickBox(player.marker);
+  
+   }
+
+return {
+switchPlayer
+}
+  })();
+
+ // console.log(runGame.switchPlayer());
+     runGame.switchPlayer(player1);
+
+ //console.log(runGame.foo);
 
 
 
-  console.log(player2.name);
 
+
+  
