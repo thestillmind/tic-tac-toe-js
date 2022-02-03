@@ -1,53 +1,46 @@
 const gameBoard = (()=>{
   let _gameBoard = [1,2,3,4,5,6,7,8,9];  
-  const setBoard = (index, value) => {
-      _gameBoard[index]= value;
-     return _gameBoard
-  }  
-
+ 
   const makeBoard = ()=>{
     let board=document.querySelector(".board");
-    for (i=0;i<gameBoard.setBoard().length;i++){    
+    for (i=0;i<_gameBoard.length;i++){    
     createNewBox(i);
   //  clickBox(i); 
     }
     
-        function createNewBox(boxNumber) {
+      function createNewBox(boxNumber) {
       let newDiv = document.createElement('div');
       newDiv.classList="newDiv";
       newDiv.setAttribute('id', "box"+boxNumber);
-      newDiv.innerText="box "+ gameBoard.setBoard()[boxNumber];
+      newDiv.innerText="box "+ +(boxNumber+1);
       board.appendChild(newDiv);     
     }
   };
 
-    function clickBox(letter){
-      let fooLetter="X";
-      let foo = document.getElementsByClassName("newDiv");     
-      Array.from(foo).forEach((element)=>{
-       element.addEventListener('click', (e)=>{
-
-        if (fooLetter=="X"){
-          fooLetter="O";
-        }
-        else if (fooLetter=="O"){
-          fooLetter="X";
-        }
-         alert("this is box number"+element.id);
-        element.innerText=fooLetter;
-         console.log("clickbox letter is: " + fooLetter);
-
-
-       });
-      });     
-    }      
-
   return {
-      setBoard,
-      makeBoard,
-      clickBox
+      makeBoard
   }  
   })();   
+
+const makeBoardInteractive = (()=>{
+  function clickBox(player){    
+    let fooPlayer = player;
+    let boardBoxes = document.getElementsByClassName("newDiv");     
+    Array.from(boardBoxes).forEach((element)=>{
+
+     element.addEventListener('click', (e)=>{
+     element.innerText=fooPlayer.marker; 
+    runGame.switchPlayer(fooPlayer.name);
+    fooPlayer = currrentPlayer;
+   });
+    });     
+  }
+
+  return {
+    clickBox
+  }
+
+})();
   
   const Player = (name, marker) => {
     return {
@@ -56,38 +49,26 @@ const gameBoard = (()=>{
     }
   };
 
-  let player1 = Player("player1", "X");
-  let player2 = Player("player2", "O");
+    let player1 = Player("player1", "X");
+    let player2 = Player("player2", "O");
+    let currrentPlayer;
 
-  const runGame = (()=>{  
-   
-  // let player=player2;
-    console.log(player1.marker);
-    console.log(player2.marker);
-
-    let counter = 0;
- console.log("counter is: " + counter);
-  gameBoard.makeBoard();    
-
-   function switchPlayer(player){   
- 
-  
-    return  gameBoard.clickBox(player.marker);
-  
+  const runGame = (()=>{       
+      
+  function switchPlayer(){     
+   if (currrentPlayer==player1){
+     currrentPlayer = player2;
    }
-
-return {
-switchPlayer
-}
+  else if (currrentPlayer==player2){
+    currrentPlayer = player1;
+  }
+      } 
+  return {
+    switchPlayer
+  }  
   })();
 
- // console.log(runGame.switchPlayer());
-     runGame.switchPlayer(player1);
 
- //console.log(runGame.foo);
-
-
-
-
-
-  
+gameBoard.makeBoard();  
+currrentPlayer = player1;
+makeBoardInteractive.clickBox(currrentPlayer);
