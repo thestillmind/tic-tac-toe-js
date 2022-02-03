@@ -11,17 +11,54 @@ const gameBoard = (()=>{
       function createNewBox(boxNumber) {
       let newDiv = document.createElement('div');
       newDiv.classList="newDiv";
-      newDiv.setAttribute('id', "box"+boxNumber);
+      newDiv.setAttribute('id', boxNumber);
       newDiv.innerText="box "+ +(boxNumber+1);
       board.appendChild(newDiv);     
     }
   };
 
+  const setBoard = (box, value) => {
+console.log(`box is ${box}, value is ${value}`);
+_gameBoard[box]=value;
+console.log(_gameBoard);
+  };
+
   return {
-      makeBoard
+      makeBoard,
+      setBoard
   }  
   })();   
+  
 
+  const makeBoardInteractive = (()=>{
+
+    const clickBox = (player) => {
+      let fooPlayer = player;
+      let boardBoxes = document.getElementsByClassName("newDiv");     
+      Array.from(boardBoxes).forEach((element)=>{
+  
+       element.addEventListener('click', (e)=>{
+       element.innerText=fooPlayer.marker; 
+      runGame.switchPlayer(fooPlayer.name);
+      gameBoard.setBoard(element.id, fooPlayer.marker);
+      console.log(`element is ${element.id}`);
+      fooPlayer = currrentPlayer;
+     });
+      });   
+
+    };
+  
+    return {
+      clickBox
+    }
+  
+  })();
+
+
+
+
+
+/*
 const makeBoardInteractive = (()=>{
   function clickBox(player){    
     let fooPlayer = player;
@@ -31,6 +68,7 @@ const makeBoardInteractive = (()=>{
      element.addEventListener('click', (e)=>{
      element.innerText=fooPlayer.marker; 
     runGame.switchPlayer(fooPlayer.name);
+    console.log(`element is ${element.id}`);
     fooPlayer = currrentPlayer;
    });
     });     
@@ -40,7 +78,7 @@ const makeBoardInteractive = (()=>{
     clickBox
   }
 
-})();
+})();*/
   
   const Player = (name, marker) => {
     return {
