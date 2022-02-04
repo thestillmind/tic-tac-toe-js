@@ -35,7 +35,7 @@ const getBoard = ()=>{
   return _gameBoard;
 };
 
-  const setBoard = (box, value) => {
+  const setBoard = (box, player) => {
 
 if ((_gameBoard[box]=="X")||(_gameBoard[box]=="O")){
 return false;
@@ -43,9 +43,10 @@ return false;
 
 else {
 
-_gameBoard[box]=value;
-let foo =document.querySelector(`div[id="${box}"]`);
-foo.innerText=value;
+_gameBoard[box]=player.marker;
+let divId =document.querySelector(`div[id="${box}"]`);
+divId.innerText=player.marker;
+console.log(`value is ${player.marker}`);
 runGame.switchPlayer();
 console.log(_gameBoard);
 return true;
@@ -68,9 +69,8 @@ return true;
   
        element.addEventListener('click', (e)=>{         
      
-        gameBoard.setBoard(element.id, fooPlayer.marker);
-        // element.innerText=fooPlayer.marker;                      
-                // runGame.switchPlayer();
+        gameBoard.setBoard(element.id, fooPlayer);
+        
                  fooPlayer = currrentPlayer;                   
            });
       });   
