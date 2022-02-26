@@ -18,21 +18,26 @@ body {
 
 .header h1 {
     margin:50px 0;
+    color:#1F2937;
+    color:#1A60EF;
+    
+    font-size:50px;
+    text-shadow: 4px 4px #ccc;    
 }
  
 .game-container {
-    background-color: #ccc;
-  
+   
 }
 
 .board {
-   display: grid;
-
+       display: grid;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px; 
     column-gap: 5px;
     row-gap: 5px;
     padding:10px;
+    background-color: #ccc;  
+    border-radius:1px;
   }
 
 .newDiv {   
@@ -46,4 +51,5 @@ body {
     cursor: pointer;
     color:#3882f6;
     font-size:30px;
+    border-radius:2px;
 }

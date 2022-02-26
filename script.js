@@ -12,7 +12,7 @@ const gameBoard = (()=>{
      let newDiv = document.createElement('div');
      newDiv.classList="newDiv";
      newDiv.setAttribute('id', boxNumber);
-     newDiv.innerText="box "+ +(boxNumber+1);
+     
      board.appendChild(newDiv);     
    }
  };
