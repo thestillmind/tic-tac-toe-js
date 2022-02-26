@@ -17,13 +17,11 @@ const gameBoard = (()=>{
    }
  };
 
-
 const getBoard = ()=>{
  return _gameBoard;
 };
 
  const setBoard = (box, player) => {
-
 if ((_gameBoard[box]=="X")||(_gameBoard[box]=="O")){
 return false;
 }
@@ -32,9 +30,7 @@ else {
 _gameBoard[box]=player.marker;
 let divId =document.querySelector(`div[id="${box}"]`);
 divId.innerText=player.marker;
-
 runGame.switchPlayer();
-//console.log(_gameBoard);
 }
  };
 
@@ -46,19 +42,32 @@ runGame.switchPlayer();
  })();     
 
  const makeBoardInteractive = (()=>{
+  let boardBoxes = document.getElementsByClassName("newDiv");
    const clickBox = (player) => {
      let thisPlayer = player;
-     let boardBoxes = document.getElementsByClassName("newDiv");
+    
 
      Array.from(boardBoxes).forEach((element)=>{   
-      element.addEventListener('click', ()=>{     
-      
-            gameBoard.setBoard(element.id, thisPlayer); 
-            runGame.checkWins();         
-                thisPlayer = currrentPlayer;                   
+      element.addEventListener('click', ()=>{    
+        
+        
+        if (runGame.checkWins()==undefined){
+
+         gameBoard.setBoard(element.id, thisPlayer); 
+          thisPlayer = currrentPlayer; 
+
+          if (runGame.checkWins()!=undefined){
+            console.log(runGame.checkWins());
+          }
+        }
+            // gameBoard.setBoard(element.id, thisPlayer); 
+            // console.log(runGame.checkWins()); 
+            //  thisPlayer = currrentPlayer;             
+                                         
           });
      });   
    };
+
  
    return {
      clickBox
@@ -101,14 +110,16 @@ runGame.switchPlayer();
       
     //This then checks if winningMoves arr has any winning matches
           for(let i=0;i<winningMoves.length;i++){
-          if (winningMoves[i].every(x => x=="X")==true){
-         console.log("Player One Wins!");
+          if (winningMoves[i].every(x => x=="X")==true){            
+        return "Player One wins!";
         }       
         else if (winningMoves[i].every(x => x=="O")==true){
-        console.log("Player Two Wins!");
-        }
-     
-      }                  
+       return "Player two wins!";
+        }   
+        else if (gameBoard.getBoard().every(x => typeof x =="string")){
+          return "It's a tie!";
+        }  
+      }
 
  };    
 
