@@ -22,25 +22,28 @@ body {
  
 .game-container {
     background-color: #ccc;
-    min-height: 200px;
-    min-width: 200px;
+  
 }
 
 .board {
    display: grid;
 
-    grid-template-columns: 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px; 
-    column-gap: 10px;
-    row-gap: 10px;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px; 
+    column-gap: 5px;
+    row-gap: 5px;
+    padding:10px;
   }
 
 .newDiv {   
-    width:50px;
-    height:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100px;
+    height:100px;
     background-color: grey;
-}
-
-#box1 {
-    background-color: green;
+    background-color: #1f2937;
+    cursor: pointer;
+    color:#3882f6;
+    font-size:30px;
 }
