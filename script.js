@@ -1,3 +1,5 @@
+const main = (()=>{
+
 const gameBoard = (()=>{
   let _gameBoard = [1,2,3,4,5,6,7,8,9];  
    
@@ -31,43 +33,41 @@ _gameBoard[box]=player.marker;
 let divId =document.querySelector(`div[id="${box}"]`);
 divId.innerText=player.marker;
 runGame.switchPlayer();
+
 }
+ };
+
+ const resetBoard = ()=>{
+  _gameBoard = [1,2,3,4,5,6,7,8,9]; 
  };
 
  return {
      makeBoard,
      getBoard,
-     setBoard
+     setBoard,
+     resetBoard
  }  
  })();     
 
  const makeBoardInteractive = (()=>{
   let boardBoxes = document.getElementsByClassName("newDiv");
-   const clickBox = (player) => {
-     let thisPlayer = player;
+   const clickBox = (player) => {   
     
 
      Array.from(boardBoxes).forEach((element)=>{   
       element.addEventListener('click', ()=>{    
-        
-        
-        if (runGame.checkWins()==undefined){
+       if (runGame.checkWins()==undefined){
 
-         gameBoard.setBoard(element.id, thisPlayer); 
-          thisPlayer = currrentPlayer; 
-
+         gameBoard.setBoard(element.id, currrentPlayer); 
+     
           if (runGame.checkWins()!=undefined){
             console.log(runGame.checkWins());
           }
         }
-            // gameBoard.setBoard(element.id, thisPlayer); 
-            // console.log(runGame.checkWins()); 
-            //  thisPlayer = currrentPlayer;             
-                                         
+                
           });
      });   
    };
-
  
    return {
      clickBox
@@ -124,19 +124,36 @@ runGame.switchPlayer();
  };    
 
 
- const gameOver = ()=>{
-
-  
- };
-
  return {
    switchPlayer,
-   checkWins,
-   gameOver
+   checkWins
  }  
  })();
+
+ const restartGame = (()=>{   
+
+  const restart = ()=>{
+let resetBtn=document.querySelector('#resetBtn');
+resetBtn.addEventListener('click', ()=>{
+currrentPlayer=player1;
+gameBoard.resetBoard();
+let boardBoxes = document.getElementsByClassName("newDiv");
+  Array.from(boardBoxes).forEach((element)=>{ 
+    element.innerText="";
+  }); 
+});
+
+  };
+
+  return {
+    restart
+  }
+
+})();
 
 
 gameBoard.makeBoard();  
 currrentPlayer = player1;
 makeBoardInteractive.clickBox(currrentPlayer);
+restartGame.restart();
+})();  
