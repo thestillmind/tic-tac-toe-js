@@ -52,19 +52,18 @@ runGame.switchPlayer();
  const makeBoardInteractive = (()=>{
   let boardBoxes = document.getElementsByClassName("newDiv");
    const clickBox = (player) => {   
-    
-
      Array.from(boardBoxes).forEach((element)=>{   
-      element.addEventListener('click', ()=>{    
-       if (runGame.checkWins()==undefined){
-
-         gameBoard.setBoard(element.id, currrentPlayer); 
-     
-          if (runGame.checkWins()!=undefined){
-            console.log(runGame.checkWins());
-          }
+      element.addEventListener('click', ()=>{  
+           
+        if (runGame.checkWins()==undefined){      
+          gameBoard.setBoard(element.id, currrentPlayer);      
+                  }    
+         
+         if (runGame.checkWins()!=undefined){
+          runGame.scoreBoard(); 
+           console.log(runGame.checkWins());
         }
-                
+            
           });
      });   
    };
@@ -89,6 +88,9 @@ runGame.switchPlayer();
 
  const runGame = (()=>{   
 
+  let _player1Score= 0;
+  let _player2Score= 0;
+
    const switchPlayer = ()=>{
      if (currrentPlayer==player1){
        currrentPlayer = player2;
@@ -97,7 +99,7 @@ runGame.switchPlayer();
       currrentPlayer = player1;
     }
    };
-
+   
    const checkWins = ()=>{
     let winningMoves = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
  
@@ -109,11 +111,15 @@ runGame.switchPlayer();
       }
       
     //This then checks if winningMoves arr has any winning matches
-          for(let i=0;i<winningMoves.length;i++){
-          if (winningMoves[i].every(x => x=="X")==true){            
+     
+    for(let i=0;i<winningMoves.length;i++){          
+          if (winningMoves[i].every(x => x=="X")==true){ 
+            console.log(i);
+        
         return "Player One wins!";
         }       
         else if (winningMoves[i].every(x => x=="O")==true){
+          _player2Score++;
        return "Player two wins!";
         }   
         else if (gameBoard.getBoard().every(x => typeof x =="string")){
@@ -123,10 +129,16 @@ runGame.switchPlayer();
 
  };    
 
+ const scoreBoard = ()=>{
+let player1Span=document.querySelector("#player1-score");
+player1Span.innerText=_player1Score;
+ };
+
 
  return {
    switchPlayer,
-   checkWins
+   checkWins,
+   scoreBoard
  }  
  })();
 
