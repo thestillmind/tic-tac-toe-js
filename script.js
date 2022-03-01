@@ -12,7 +12,6 @@ const main = (() => {
         let newDiv = document.createElement("div");
         newDiv.classList = "newDiv";
         newDiv.setAttribute("id", boxNumber);
-
         board.appendChild(newDiv);
       }
     };
@@ -49,7 +48,6 @@ const main = (() => {
       Array.from(boardBoxes).forEach((element) => {
         element.addEventListener("click", () => {
           runGame.playGame(element);
-
         });
       });
     };
@@ -78,7 +76,7 @@ const main = (() => {
         gameBoard.setBoard(element.id, currrentPlayer);
         if (runGame.checkWins() == true) {
           currrentPlayer.score++;
-          console.log("wiiner is " + currrentPlayer.name);
+          console.log("winner is " + currrentPlayer.name);
           runGame.scoreBoard();
         } else if (runGame.checkWins() == false) {
           console.log("its a tie");
