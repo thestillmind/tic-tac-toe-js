@@ -50,21 +50,6 @@ const main = (() => {
         element.addEventListener("click", () => {
           runGame.playGame(element);
 
-          // if (runGame.checkWins()!=undefined){
-          //   runGame.scoreBoard();
-          //   console.log("!=undefined is "+runGame.checkWins());
-          // }
-
-          //  if (runGame.checkWins()==undefined){
-          //     gameBoard.setBoard(element.id, currrentPlayer);
-          //     if (runGame.checkWins()==true){
-          //       console.log("wiiner is "+currrentPlayer.name);
-          //     }
-          //     else if (runGame.checkWins()==false){
-          //       console.log("its a tie");
-          //     };
-          //     runGame.switchPlayer();
-          //             }
         });
       });
     };
@@ -87,9 +72,7 @@ const main = (() => {
   let currrentPlayer;
 
   const runGame = (() => {
-    let _player1Score = 0;
-    let _player2Score = 0;
-
+   
     const playGame = (element) => {
       if (runGame.checkWins() == undefined) {
         gameBoard.setBoard(element.id, currrentPlayer);
@@ -161,26 +144,45 @@ const main = (() => {
       scoreBoard,
     };
   })();
+ 
 
   const restartGame = (() => {
-    const restart = () => {
-      let resetBtn = document.querySelector("#resetBtn");
-      resetBtn.addEventListener("click", () => {
-        currrentPlayer = player1;
+
+const clearBoard = ()=>{
+  currrentPlayer = player1;
         gameBoard.resetBoard();
         let boardBoxes = document.getElementsByClassName("newDiv");
         Array.from(boardBoxes).forEach((element) => {
           element.innerText = "";
         });
+};
+
+    const restartGame = () => {
+      let resetBtn = document.getElementById("resetBtn");
+      resetBtn.addEventListener("click", () => {
+      clearBoard();
+      runGame.scoreBoard();
+      });
+    };
+
+    const restartRound = () => {
+      let resetBtn = document.getElementById("resetRoundBtn");
+      resetBtn.addEventListener("click", () => {
+      clearBoard();      
+      player1.score=0;
+      player2.score=0;
+      runGame.scoreBoard();
       });
     };
     return {
-      restart,
+      restartGame,
+      restartRound
     };
   })();
 
   gameBoard.makeBoard();
   currrentPlayer = player1;
   makeBoardInteractive.clickBox(currrentPlayer);
-  restartGame.restart();
+  restartGame.restartGame();
+  restartGame.restartRound();
 })();
