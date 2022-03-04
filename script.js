@@ -67,6 +67,7 @@ const main = (() => {
 
   let player1 = Player("player1", "X", 0);
   let player2 = Player("player2", "O", 0);
+  let playerComp = Player ("computer", "O",0);
   let currrentPlayer;
 
   const runGame = (() => {
